@@ -24,6 +24,11 @@ public class RestoAppController {
 	public RestoAppController() {
 	}
 	
+	public static void CreateTable()
+	{
+		
+	}
+	
 	//code for create/delete operation should look something like this
 //	public static void createTable(int number, int x, int y, int width, int length, int numberOfSeats) throws InvalidInputException {
 //		RestoApp restoApp = RestoAppApplication.getRestoApp();
