@@ -24,8 +24,17 @@ public class RestoAppController {
 	public RestoAppController() {
 	}
 	
-	public static void CreateTable()
+	public static void CreateTable() throws InvalidInputException
 	{
+		RestoApp restoapp = RestoAppApplication.getRestoapp();
+		try
+		{
+			
+		}
+		catch (RuntimeException e)
+		{
+			throw new InvalidInputException(e.getMessage());
+		}
 		
 	}
 	
