@@ -7,6 +7,7 @@ import java.util.*;
 // line 50 "../../../../../RestoApp.ump"
 public class Menu
 {
+	private static final long serialVersionUID = -7403802774454467836L;
 
   //------------------------
   // MEMBER VARIABLES

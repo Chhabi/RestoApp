@@ -7,6 +7,7 @@ import java.util.*;
 // line 54 "../../../../../RestoApp.ump"
 public class MenuItem
 {
+	private static final long serialVersionUID =  -1776230320092632776L;
 
   //------------------------
   // ENUMERATIONS

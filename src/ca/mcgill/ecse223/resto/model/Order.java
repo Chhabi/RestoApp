@@ -8,6 +8,7 @@ import java.util.*;
 // line 37 "../../../../../RestoApp.ump"
 public class Order
 {
+	private static final long serialVersionUID = -3900912597282882073L;
 
   //------------------------
   // STATIC VARIABLES

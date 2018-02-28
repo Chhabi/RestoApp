@@ -7,6 +7,7 @@ import java.util.*;
 // line 34 "../../../../../RestoApp.ump"
 public class Seat
 {
+	private static final long serialVersionUID =386717977557499839L;
 
   //------------------------
   // MEMBER VARIABLES

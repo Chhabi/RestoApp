@@ -7,6 +7,7 @@ import java.util.*;
 // line 24 "../../../../../RestoApp.ump"
 public class Table
 {
+	private static final long serialVersionUID = 8896099581655989380L;
 
   //------------------------
   // STATIC VARIABLES

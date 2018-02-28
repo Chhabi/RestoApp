@@ -8,6 +8,7 @@ import java.sql.Date;
 // line 3 "../../../../../RestoApp.ump"
 public class RestoApp
 {
+	private static final long serialVersionUID = -2683593616927798071L;
 
   //------------------------
   // MEMBER VARIABLES

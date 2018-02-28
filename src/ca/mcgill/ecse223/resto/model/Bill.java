@@ -7,7 +7,7 @@ import java.util.*;
 // line 66 "../../../../../RestoApp.ump"
 public class Bill
 {
-
+	private static final long serialVersionUID =  1301576255893682821L;
   //------------------------
   // MEMBER VARIABLES
   //------------------------
