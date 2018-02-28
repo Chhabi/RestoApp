@@ -32,7 +32,7 @@ public class RestoAppApplication {
         
 	}
 
-	public static RestoApp getRestoapp() {
+	public static RestoApp getRestoApp() {
 		if (restoapp == null) {
 			
 			restoapp = load();

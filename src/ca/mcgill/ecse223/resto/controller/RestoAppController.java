@@ -27,7 +27,7 @@ public class RestoAppController {
 	
 	public static void createTable() throws InvalidInputException
 	{
-		RestoApp restoapp = RestoAppApplication.getRestoapp();
+		RestoApp restoapp = RestoAppApplication.getRestoApp();
 		List<Table> currentTables = restoapp.getCurrentTables();
 		Table highestNumberedTable = currentTables.stream().max(Comparator.comparing(Table::getNumber)).get();
 		int newTableNumber = highestNumberedTable.getNumber() + 1;
