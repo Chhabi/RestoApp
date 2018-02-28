@@ -35,8 +35,14 @@ public class RestoAppController {
 		
 		
 		try
-		{
-			
+		{	
+			Table newtable = restoapp.addTable(newTableNumber, 0,0, 10, 10);
+			restoapp.addCurrentTable(newtable);
+			for (int seatCount = 1; seatCount <= PRESET_NUMBER_OF_SEATS; seatCount++ )
+			{
+				newtable.addCurrentSeat(newtable.addSeat());
+			}
+			//RestoAppApplication.save();
 		}
 		catch (RuntimeException e)
 		{
