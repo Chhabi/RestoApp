@@ -34,9 +34,7 @@ public class RestoAppApplication {
 
 	public static RestoApp getRestoapp() {
 		if (restoapp == null) {
-			// load model
-			// TODO
-			// for now, we are just creating an empty BTMS
+			
 			restoapp = load();
 		}
  		return restoapp;

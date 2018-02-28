@@ -3,6 +3,7 @@ package ca.mcgill.ecse223.resto.controller;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Comparator;
 import java.util.List;
 
 import ca.mcgill.ecse223.resto.application.RestoAppApplication;
@@ -24,9 +25,15 @@ public class RestoAppController {
 	public RestoAppController() {
 	}
 	
-	public static void CreateTable() throws InvalidInputException
+	public static void createTable() throws InvalidInputException
 	{
 		RestoApp restoapp = RestoAppApplication.getRestoapp();
+		List<Table> currentTables = restoapp.getCurrentTables();
+		Table highestNumberedTable = currentTables.stream().max(Comparator.comparing(Table::getNumber)).get();
+		int newTableNumber = highestNumberedTable.getNumber() + 1;
+		int PRESET_NUMBER_OF_SEATS = 6;
+		
+		
 		try
 		{
 			
