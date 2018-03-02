@@ -58,6 +58,7 @@ public class RestoVisualizer extends JPanel {
 	private void init() {
 		restoapp = null;
 		tables =new HashMap<RoundRectangle2D, Table>();
+		seats = new HashMap<Ellipse2D, Seat>(); 
 		selectedSeat = null;
 		selectedTable = null;
 		addMouseListener(new MouseAdapter() {
@@ -84,6 +85,7 @@ public class RestoVisualizer extends JPanel {
 	{
 		this.restoapp = restoapp;
 		tables = new HashMap<RoundRectangle2D, Table>();
+		seats = new HashMap<Ellipse2D, Seat>(); 
 		selectedSeat = null;
 		selectedTable  = null;
 		System.out.println("in setResto");
@@ -118,8 +120,24 @@ public class RestoVisualizer extends JPanel {
 				g2d.fill(rectangle);
 				g2d.draw(rectangle);
 				
+				System.out.println(table.getCurrentSeats().size());
+				
+				for(Seat seat: table.getCurrentSeats()) {
+					Ellipse2D circle = new Ellipse2D.Double(10, 70, SEAT_DIAMETER, SEAT_DIAMETER);
+					circles.add(circle);
+					
+					seats.put(circle, seat);
+					
+					g2d.setColor(Color.GRAY);
+					g2d.fill(circle);
+					g2d.draw(circle);
+					
+					
+				}
+				
 				
 			}
+			
 			
 			
 		}
