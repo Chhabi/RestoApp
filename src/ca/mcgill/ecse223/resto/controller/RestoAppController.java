@@ -84,12 +84,63 @@ public class RestoAppController {
 		
 		int n = table.numberOfCurrentSeats();
 		
-		for (int k = 1; k < (numberOfSeats - n); k++) {
+		for (int k = 1; k <= (numberOfSeats - n); k++) {
 			Seat seat = table.addSeat();
 			table.addCurrentSeat(seat);
 		}
 		
-		for (int k = 1; k < (n - numberOfSeats); k++) {
+		for (int k = 1; k <= (n - numberOfSeats); k++) {
+			Seat seat = table.getCurrentSeat(0);
+			table.removeCurrentSeat(seat);
+		}
+		
+		RestoAppApplication.save();
+		
+	}
+	
+	public static void updateTable(int number, int newNumber, int numberOfSeats) throws InvalidInputException {
+		
+		Table table = RestoAppApplication.getRestoapp().getCurrentTable(number);
+	
+		if(table == null) {
+			throw new InvalidInputException("The table doesn't exist.");
+		} else if (newNumber < 0 || numberOfSeats < 0) {
+			throw new InvalidInputException("Numbers are not positive.");
+		} else if (table.hasReservations()) {
+			throw new InvalidInputException("The table is reserved.");
+		}
+		
+		RestoApp r = RestoAppApplication.getRestoapp();
+		
+		List<Order> currentOrders = r.getCurrentOrders();
+		
+		for(int k = 0; k < currentOrders.size(); k++) {
+			Order order = currentOrders.get(k);
+			List<Table> tables = order.getTables();
+			boolean inUse = tables.contains(table);
+			if (inUse) {
+				throw new InvalidInputException("Table in use.");
+			}
+		}
+		
+		try {
+			table.setNumber(newNumber);
+		} catch (RuntimeException e) {
+			throw new InvalidInputException("The new number is a duplicate.");
+		}
+		
+		int n = table.numberOfCurrentSeats();
+		
+		System.out.println("The number of seats is: " + numberOfSeats);
+		System.out.println("The current number of seats is: " + n);
+		System.out.println("The difference is: " + (numberOfSeats - n));
+		
+		for (int k = 0; k < (numberOfSeats - n); k++) {
+			Seat seat = table.addSeat();
+			table.addCurrentSeat(seat);
+		}
+		
+		for (int k = 0; k < (n - numberOfSeats); k++) {
 			Seat seat = table.getCurrentSeat(0);
 			table.removeCurrentSeat(seat);
 		}

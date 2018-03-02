@@ -19,6 +19,8 @@ import java.util.List;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 
 import ca.mcgill.ecse223.resto.controller.RestoAppController;
 import ca.mcgill.ecse223.resto.model.Table;
@@ -32,6 +34,7 @@ import ca.mcgill.ecse223.resto.controller.InvalidInputException;
 public class RestoAppPage extends JFrame {
 
 	private static final long serialVersionUID = -2702005067769134471L;
+	private static final int MAX_SEATS = 8;
 	
     /************DECLARATIONS******************/
     private JPanel Image_panel;
@@ -138,10 +141,34 @@ public class RestoAppPage extends JFrame {
         JPanel popupMenuItem1 = new JPanel();
         JPanel popupMenuItem2 = new JPanel();
         JPanel popupMenuItem3 = new JPanel();
+        JPanel popupMenuItem4 = new JPanel();
 
         //Table Label
         JLabel tableName = new JLabel();
         tableName.setBackground(new Color(255,230,153));
+        
+        JTextField tableNumber = new JTextField();
+        tableNumber.setBackground(new Color(255,230,153));
+        tableNumber.addActionListener(new java.awt.event.ActionListener() {
+        	public void actionPerformed(java.awt.event.ActionEvent evt) {
+        		String newTableNumber = tableNumber.getText();
+        		tableNumberChangeActionPerformed(evt, newTableNumber);
+            }
+        });   
+        
+        JSlider tableSlider = new JSlider();
+        tableSlider.setBackground(new Color(255,230,153));
+        tableSlider.setMaximum(MAX_SEATS);
+		tableSlider.setMinimum(0);
+		tableSlider.setMajorTickSpacing(1);
+		tableSlider.setPaintTicks(true);
+		tableSlider.setPaintLabels(true);
+		tableSlider.addChangeListener(new ChangeListener() {
+        	public void stateChanged(ChangeEvent evt) {
+        		int numSeats = tableSlider.getValue();
+        		tableCurrentSeatsChangeActionPerformed(evt, numSeats);
+            }
+        });
         
         //Delete Button
         RoundButton removeTableButton = new RoundButton();
@@ -201,13 +228,16 @@ public class RestoAppPage extends JFrame {
         			if(table.contains(x_click, y_click)) {
         				selectedTable = table;
         				
-        				int selectedTableNumber = -1;
+        				String selectedTableNumber = "-1";
                 		if(selectedTable != null) {
-                			selectedTableNumber = selectedTable.getNumber();
+                			selectedTableNumber = Integer.toString(selectedTable.getNumber());
                 		}
                 		
-        				tableName.setText("Table "+selectedTableNumber);
-
+        				tableName.setText("Table ");
+        				tableNumber.setText(selectedTableNumber);
+        				tableSlider.setValue(selectedTable.getCurrentSeats().size());
+        				
+        				
         				pop(x_click, y_click);
         				
         				break;
@@ -220,16 +250,20 @@ public class RestoAppPage extends JFrame {
                 popupMenuItem1.setLayout(new BoxLayout(popupMenuItem1, BoxLayout.LINE_AXIS));
                 popupMenuItem2.setLayout(new BoxLayout(popupMenuItem2, BoxLayout.LINE_AXIS));
                 popupMenuItem3.setLayout(new BoxLayout(popupMenuItem3, BoxLayout.LINE_AXIS));
+                popupMenuItem4.setLayout(new BoxLayout(popupMenuItem4, BoxLayout.LINE_AXIS));
 
                 popupMenuItem1.add(tableName);
+                popupMenuItem1.add(tableNumber);
                 popupMenuItem2.add(removeTableButton);
                 popupMenuItem2.add(moveTableButton);
                 popupMenuItem3.add(rotateTableButton);
                 popupMenuItem3.add(inUseButton);
+                popupMenuItem4.add(tableSlider);
                 
                 popupMenu.add(popupMenuItem1);
                 popupMenu.add(popupMenuItem2);
                 popupMenu.add(popupMenuItem3);
+                popupMenu.add(popupMenuItem4);
                 
         		popupMenu.show(Image_panel, x, y);
 			}
@@ -350,6 +384,22 @@ public class RestoAppPage extends JFrame {
         // TODO add your handling code here:
     }
 
+    private void tableCurrentSeatsChangeActionPerformed(ChangeEvent evt, int numSeats) {
+    	try {
+			RestoAppController.updateTable(selectedTable, selectedTable.getNumber(), numSeats);
+		} catch (InvalidInputException e) {
+			error = e.getMessage();
+		}
+    }
+    
+    private void tableNumberChangeActionPerformed(ActionEvent evt, String newTableNumber) {
+		try {
+			RestoAppController.updateTable(selectedTable, Integer.valueOf(newTableNumber), selectedTable.getCurrentSeats().size());
+		} catch (InvalidInputException e) {
+			error = e.getMessage();
+		}
+    }
+    
 	private void removeTableButtonActionPerformed(ActionEvent evt) {
 		// clear error message and basic input validation
 		error = "";
