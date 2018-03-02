@@ -119,11 +119,12 @@ public class RestoVisualizer extends JPanel {
 				g2d.setColor(Color.GRAY);
 				g2d.fill(rectangle);
 				g2d.draw(rectangle);
-				
+				g2d.setColor(Color.BLACK);
+				g2d.drawString(new Integer(table.getNumber()).toString(),(int) (table.getX() + (table.getWidth()/2.3)), (int)(table.getY() + (table.getLength()/1.8)) );
 				System.out.println(table.getCurrentSeats().size());
 				
 				for(Seat seat: table.getCurrentSeats()) {
-					Ellipse2D circle = new Ellipse2D.Double(10, 70, SEAT_DIAMETER, SEAT_DIAMETER);
+					Ellipse2D circle = new Ellipse2D.Double(table.getX()+SEAT_DIAMETER, table.getY()-1.5*(SEAT_DIAMETER), SEAT_DIAMETER, SEAT_DIAMETER);
 					circles.add(circle);
 					
 					seats.put(circle, seat);
