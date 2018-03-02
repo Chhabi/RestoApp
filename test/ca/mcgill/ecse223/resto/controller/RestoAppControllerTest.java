@@ -34,7 +34,17 @@ public class RestoAppControllerTest {
 	@Test
 	public void testCreateTableSuccess() 
 	{
-		fail("Not yet implemented");
+		RestoApp restoapp = RestoAppApplication.getRestoApp();
+		try
+		{
+			RestoAppController.createTable();
+		}
+		catch (InvalidInputException e)
+		{
+			//check that no error occurred
+			fail();
+		}
+		checkResultTable()
 	}
 
 }

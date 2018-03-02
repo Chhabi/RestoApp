@@ -20,25 +20,56 @@ import ca.mcgill.ecse223.resto.model.Seat;
 import ca.mcgill.ecse223.resto.model.Table;
 
 
+
 public class RestoAppController {
+	
+	public static final int SEAT_DIAMETER = 20;
 
 	public RestoAppController() {
 	}
 	
 	public static void createTable() throws InvalidInputException
-	{
+	{	
+		int newTableNumber =0;
+		int aX;
+		int aY;
 		RestoApp restoapp = RestoAppApplication.getRestoApp();
 		List<Table> currentTables = restoapp.getCurrentTables();
+		if(currentTables.size() != 0) {
 		Table highestNumberedTable = currentTables.stream().max(Comparator.comparing(Table::getNumber)).get();
-		int newTableNumber = highestNumberedTable.getNumber() + 1;
-		int PRESET_NUMBER_OF_SEATS = 6;
+		newTableNumber = highestNumberedTable.getNumber() + 1;
+		}
+		else {
+			newTableNumber =1 ;
+		}
 		
+		int numberOfSeats = 4;
+		int tableWidth = 3*SEAT_DIAMETER;
+		int tableLength;
+		if (numberOfSeats%2 ==0) {
+			tableLength = (numberOfSeats-1)*SEAT_DIAMETER;
+		}
+		else
+		{
+			tableLength = (numberOfSeats) * SEAT_DIAMETER;
+		}
+		
+		if(restoapp.getCurrentTables().size() == 0) {
+			aX = 50;
+			aY = 10;
+		}
+		else {
+			aX = 10;
+			aY =10;
+		}
 		
 		try
 		{	
-			Table newtable = restoapp.addTable(newTableNumber, 0,0, 10, 10);
+			System.out.println("in createTable");
+			Table newtable = restoapp.addTable(newTableNumber, 50,100, tableWidth, tableLength);
 			restoapp.addCurrentTable(newtable);
-			for (int seatCount = 1; seatCount <= PRESET_NUMBER_OF_SEATS; seatCount++ )
+			System.out.println(restoapp.getCurrentTables());
+			for (int seatCount = 1; seatCount <= numberOfSeats; seatCount++ )
 			{
 				newtable.addCurrentSeat(newtable.addSeat());
 			}
